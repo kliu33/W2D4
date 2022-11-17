@@ -1,3 +1,7 @@
+require "byebug"
+
+#######################################################################
+
 def no_dupes?(arr)
     out = Hash.new(0)
     arr.each do |ele|
@@ -6,8 +10,8 @@ def no_dupes?(arr)
     out.select {|k,v| v == 1}.keys
 end 
 
+#######################################################################
 
-require "byebug"
 
 def no_consecutive_repeats?(arr)
     (0..arr.length-1).each do |idx|
@@ -15,6 +19,8 @@ def no_consecutive_repeats?(arr)
     end 
     true
 end 
+
+#######################################################################
 
 def char_indices(str)
     out = Hash.new
@@ -27,6 +33,8 @@ def char_indices(str)
     end
     out
 end 
+
+#######################################################################
 
 def substrings(str)
     out = []
@@ -47,7 +55,58 @@ def longest_streak(str)
     uniq.select {|sub| sub.length == amax}[-1].join("")
 end 
 
-p longest_streak('accccbbb')    # => 'cccc'
-p longest_streak('aaaxyyyyyzz') # => 'yyyyy
-p longest_streak('aaabbb')      # => 'bbb'
-p longest_streak('abc')    
+#######################################################################
+
+def is_prime?(num)
+    return false if num < 2
+    if num > 2
+        (2...num).each do |factor|
+            if num % factor == 0
+                return false
+            end
+        end
+    end
+    true
+end
+
+def bi_prime?(num)
+    factors = []
+    (1..num).each do |fac|
+        factors << fac if num % fac == 0
+    end 
+    factors.each_with_index do |pr, idx|
+        return true if is_prime?(factors[idx]) && is_prime?(factors[-1 * (idx+1)])
+    end
+    return false
+end
+
+def vigenere_cipher(message, keys)
+    out = ""
+    alpha = "abcdefghijklmnopqrstuvwxyz"
+    message.each_char do |char|
+        out += alpha[(alpha.index(char) + keys[0]) % 26]
+        keys.rotate!
+    end
+    out
+end 
+
+def vowel_rotate(str)
+    out = Array.new(str.length, :_)
+    vow = "aeiou"
+    vowels = []
+    str.each_char.with_index do |char, idx|
+        if vow.include?(char)
+           vowels << char
+        else
+            out[idx] = char
+        end
+    end
+    vowels = vowels.unshift(vowels.pop)
+    out.each_with_index do |check, idx|
+        if check == :_
+            out[idx] = vowels[0] 
+            vowels.rotate!
+        end
+    end
+    out.join("")
+end 
