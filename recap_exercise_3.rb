@@ -80,6 +80,8 @@ def bi_prime?(num)
     return false
 end
 
+#######################################################################
+
 def vigenere_cipher(message, keys)
     out = ""
     alpha = "abcdefghijklmnopqrstuvwxyz"
@@ -89,6 +91,8 @@ def vigenere_cipher(message, keys)
     end
     out
 end 
+
+#######################################################################
 
 def vowel_rotate(str)
     out = Array.new(str.length, :_)
@@ -110,3 +114,58 @@ def vowel_rotate(str)
     end
     out.join("")
 end 
+
+#######################################################################
+
+class String
+    def select(&prc)
+        prc ||= Proc.new{|ch| ch != ch}
+        out = ""
+        self.each_char do |char|
+            out += char if prc.call(char)
+        end
+        out
+    end
+
+    def map!(&prc)
+        self.each_char.with_index do |char, idx|
+            self[idx] = prc.call(char,idx)
+        end 
+        self
+    end 
+end
+
+#######################################################################
+
+ def multiply(a,b)
+     return a if b == 1
+ 
+     if b < 0
+         -(a + multiply(a, -b - 1))
+     else
+        return a + multiply(a, b - 1)
+     end
+ end 
+
+########################################################################
+#
+#def lucas_sequence(len)
+#    return 2 if len == 1
+#    return 1 if len == 2
+#
+#    if len < 0
+#        return []
+#    elsif len == 1
+#        return [2]
+#    else
+#        return [] << lucas_sequence(len-2) + lucas_sequence(len-1)
+#    end
+#end
+#
+#p lucas_sequence(0)   # => []
+#p lucas_sequence(1)   # => [2]    
+#p lucas_sequence(2)   # => [2, 1]
+#p lucas_sequence(3)   # => [2, 1, 3]
+#p lucas_sequence(6)   # => [2, 1, 3, 4, 7, 11]
+#
+########################################################################
