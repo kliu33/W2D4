@@ -107,14 +107,13 @@ end
 #     2-dimensional array: [['some data']]
 #     3-dimensional array: [[['some data']]]
 
-#require "byebug"
-#def flatten(data)
-#    return data if !data.is_a?(Array) 
-#    return flatten(data[0]) if data.length == 1
-#
-#    flatten(data[0]) << flatten(data[1..-1]) 
-#end
-#
-#debugger
-#array_1 = [1, 2, [[3, 4], [5, [6]]], [7, 8]]
-#p flatten(array_1)
+require "byebug"
+def flatten(data)
+    return [data] if !data.is_a?(Array) 
+    return flatten(data[0]) if data.length == 1
+
+    flatten(data[0]) + flatten(data[1..-1]) 
+end
+
+array_1 = [1, 2, [[3, 4], [5, [6]]], [7, 8]]
+p flatten(array_1)
