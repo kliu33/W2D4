@@ -1,7 +1,17 @@
 # Write a method, least_common_multiple, that takes in two numbers and returns the smallest number that is a mutiple
 # of both of the given numbers
 def least_common_multiple(num_1, num_2)
-
+    if (num_1<=>num_2) == -1
+        (num_1..num_1 * num_2).each do |check|
+            return check if check % num_1 == 0 && check % num_2 == 0
+        end
+    elsif (num_1<=>num_2) == 1
+        (num_2..num_1 * num_2).each do |check|
+            return check if check % num_1 == 0 && check % num_2 == 0
+        end
+    else
+        return num_1
+    end
 end
 
 
