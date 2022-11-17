@@ -6,7 +6,22 @@
 #
 # all_vowel_pairs(["goat", "action", "tear", "impromptu", "tired", "europe"])   # => ["action europe", "tear impromptu"]
 def all_vowel_pairs(words)
-
+    pairs = []
+    words.each_with_index do |word1, idx1|
+        words.each_with_index do |word2, idx2|
+            if idx2 > idx1
+                alpha_check = ["a","e","i","o","u"]
+                word1.each_char do |char|
+                    alpha_check.delete(char) if alpha_check.include?(char)
+                end
+                word2.each_char do |char|
+                    alpha_check.delete(char) if alpha_check.include?(char)
+                end
+                pairs << [word1,word2].join(" ") if alpha_check.length == 0
+            end
+        end
+    end
+    pairs
 end
 
 
