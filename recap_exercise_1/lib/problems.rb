@@ -33,7 +33,12 @@ end
 # composite?(9)     # => true
 # composite?(13)    # => false
 def composite?(num)
-
+    (num-1).downto(2).each do |fac|
+        if num % fac == 0
+            return true
+        end
+    end
+    false
 end
 
 
